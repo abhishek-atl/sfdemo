@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello UserController!{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <div class="row">
+        <h2 class="mt-5">Users</h2>
+        {% for message in app.flashes('notice') %}
+        <div class="alert alert-success">
+            {{ message}}
+        </div>
+        {% endfor %}
+        <a href="{{ path('app_user_create') }}" class="btn btn-secondary col-md-1">Add</a>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Salary</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>{{ user.id}}</td>
+                    <td>{{ user.name}}</td>
+                    <td>{{ user.address}}</td>
+                    <td>{{ user.salary}}</td>
+                    <td>
+                        <a href="{{ path('app_user_update',{'id': user.id}) }}" class="btn btn-secondary">
+                            <i class="bi bi-pencil"></i></a>
+                        <a href="{{ path('app_user_show',{'id': user.id}) }}" class="btn btn-secondary">
+                            <i class="bi bi-eye"></i></a>
+                        <a href="{{ path('app_user_delete',{'id': user.id}) }}"
+                            onclick="javascript:return confirm('Are you sure you want to delete?')"
+                            class="btn btn-danger"><i class="bi bi-trash"></i></a>
+                    </td>
+                </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
